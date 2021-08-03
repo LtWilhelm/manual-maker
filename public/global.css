@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap');
 * {
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  color: #dcdcdc;
+  color: var(--text);
   box-sizing: border-box;
 }
 
@@ -18,7 +18,8 @@ body {
   --highlight: #22222280;
   --lowlight: #1d1d1d80;
   --bg: #20202080;
-  --trans: #00000000
+  --trans: #00000000;
+  --text: #dcdcdc;
 }
 
 button {

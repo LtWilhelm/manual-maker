@@ -1,37 +1,29 @@
 <script lang="ts">
   import Contents from "./Contents.svelte";
-  import { Manual } from "../../classes/Manual/Manual";
+  import type { Manual } from "../../classes/Manual/Manual";
   import { ManualStore } from "../../stores/Manual";
-  import { onDestroy, onMount } from "svelte";
+  import { onDestroy } from "svelte";
   import { ActiveSection } from "../../stores/ActiveSection";
   import SectionDisplay from "./SectionDisplay.svelte";
-  import { slimGet, slimPut } from "../../utils/slimFetch";
+  import { idb } from "../../utils/idb";
 
+  
   let manual: Manual;
   const unsub = ManualStore.subscribe((val) => (manual = val));
 
-  // onMount(() => {
-  //   getFromServer();
-  // })
-
+  let timer;
   $: {
-    localStorage.setItem("manual", JSON.stringify(manual));
+    update(manual);
+  }
+
+  function update(m: Manual) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      idb("manuals", "put", JSON.parse(JSON.stringify(m)));
+    }, 2000);
   }
 
   onDestroy(unsub);
-
-  async function saveToServer() {
-    // await fetch("/api/manual", {
-    //   method: "PUT",
-    //   body: JSON.stringify(manual),
-    // });
-    await slimPut('/api/manual', manual);
-  }
-
-  async function getFromServer() {
-    const data = await slimGet("/api/manual");
-    manual = new Manual(data);
-  }
 </script>
 
 <manual>
@@ -44,8 +36,6 @@
       {:else}
         <SectionDisplay edit={true} />
       {/if}
-      <button on:click={saveToServer}>Save To Server</button>
-      <button on:click={getFromServer}>Get From Server</button>
     {:else}
       <h1>{manual.title}</h1>
       {#if !$ActiveSection}

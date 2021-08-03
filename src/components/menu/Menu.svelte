@@ -14,14 +14,10 @@
     {#if width > 425}
     <ul transition:fly={{ duration: 500, x: -200 }}>
       <MenuItem to="/">Home</MenuItem>
-      <MenuItem to="/core">Core Rules</MenuItem>
-      <MenuItem to="/ships">Ships</MenuItem>
     </ul>
     {:else}
     <ul transition:fly={{ duration: 500, y: -200 }}>
       <MenuItem to="/">Home</MenuItem>
-      <MenuItem to="/core">Core Rules</MenuItem>
-      <MenuItem to="/ships">Ships</MenuItem>
     </ul>
     {/if}
   {/if}

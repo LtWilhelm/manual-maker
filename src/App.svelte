@@ -21,12 +21,13 @@
     background-image: linear-gradient(165deg, #00000080, #00000080 40%, var(--bg) 40%);
     margin: 0;
     overflow: auto;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(1px); */
     display: flex;
   }
   div {
     /* margin: 1.5em; */
     flex: 1;
+    margin: 3rem;
   }
 
   @media only screen and (max-width: 420px) {

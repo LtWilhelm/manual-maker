@@ -1,17 +1,22 @@
+import { v4 } from "uuid";
 import { Section } from "./Section";
 
 export class Manual {
+  uuid: string;
   title: string;
   sections: Section[];
   bodies?: string[];
+  img?: string;
 
   isEditable: boolean;
 
   constructor(m?: Manual) {
+    this.uuid = m?.uuid || v4();
     this.title = m?.title || 'Title 🖊';
     this.sections = m ? m?.sections.map(s => new Section(s)) : [];
     this.bodies = m?.bodies || [''];
     this.isEditable = m?.isEditable || true;
+    this.img = m?.img;
   }
 
   addSection = (s: Section) => {
