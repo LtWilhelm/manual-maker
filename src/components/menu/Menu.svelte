@@ -8,7 +8,7 @@
 </script>
 
 <menu class:shown on:click={() => (shown = !shown)}>
-  <div class="menu-icon"><Icon icon="black-hole" /></div>
+  <div class="menu-icon"><img src="/favicon.png" alt=""></div>
 
   {#if shown}
     {#if width > 425}
@@ -31,11 +31,23 @@
     background-image: radial-gradient(#654545, #00000000 30%);
     animation: glow 1s ease-in-out normal forwards;
     background-position: 50% 50%;
-    width: max-content;
+    width: 3rem;
+    height: 3rem;
+
+    display: grid;
   }
 
   div.menu-icon:hover {
     background-image: radial-gradient(#454565, #00000000 30%);
+  }
+
+  .menu-icon img {
+    width: 2rem;
+    transition: .2s;
+    place-self: center;
+  }
+  .menu-icon:hover img {
+    width: 2.2rem;
   }
 
   :not(.shown) div.menu-icon {

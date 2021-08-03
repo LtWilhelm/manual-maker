@@ -36,15 +36,20 @@
   {#each manuals as manual}
     <card>
       <a href={"/manual/" + manual.uuid} use:link>
-        {#if manual.img}
-          <div class="image-container">
-            <img src={manual.img} alt={manual.title + " manual image"} />
-          </div>
-        {/if}
-        <h2>{manual.title}</h2>
-        <p>
-          {formatBody(manual.bodies[0])}
-        </p>
+        <div>
+          {#if manual.img}
+            <div class="image-container">
+              <img src={manual.img} alt={manual.title + " manual image"} />
+            </div>
+          {/if}
+          <h2>{manual.title}</h2>
+          <p>
+            {formatBody(manual.bodies[0])}
+          </p>
+          <p>
+            {manual.sections.length} sections
+          </p>
+        </div>
       </a>
     </card>
   {/each}
@@ -75,11 +80,20 @@
     overflow: hidden;
   }
 
-  card *:not(.image-container) {
-    margin: 1rem;
+  card>a>div {
+    width: 100%;
+    height: 100%;
+    padding-top: 1rem;
   }
 
-  card button:not(.image-container) {
+  card>a>div>*:not(.image-container) {
+    margin: 1rem;
+  }
+  card>a>div>*:first-child {
+    margin-top: 0;
+  }
+
+  card button {
     margin: 0;
     width: 100%;
     height: 100%;
@@ -92,7 +106,7 @@
 
   .image-container {
     width: 100%;
-    height: 150px;
+    height: 130px;
     overflow: hidden;
   }
 
