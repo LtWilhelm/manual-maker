@@ -6,25 +6,49 @@
 }
 
 body {
-  background: url(bricks.jpg);
-  background-size: 100vw;
+  background: url(bg.jpg) ;
+  background-size: auto;
   background-color: black;
-  backdrop-filter: blur(5px);
+  /* backdrop-filter: blur(5px); */
   margin: 0;
 }
 
 :root {
-  --light: #303030;
-  --shade: #151515;
+  --light: #00000030;
+  --shade: #00000050;
   --highlight: #22222280;
   --lowlight: #1d1d1d80;
-  --bg: #20202080;
+  --bg: #202020f0;
   --trans: #00000000;
   --text: #dcdcdc;
 }
 
+.pane {
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.pane, button {
+  text-shadow: 5px 5px 10px black;
+  backdrop-filter: blur(10px) drop-shadow(5px 5px 5px black);
+  box-shadow: -5px -5px 10px var(--light), 5px 5px 10px var(--shade);
+
+}
+
+th.pane, td.pane {
+  padding: 5px;
+}
+
+ul.pane {
+  padding-left: 2rem;
+}
+
+table {
+  border-spacing: 1rem;
+}
+
 button {
-  border: 3px solid var(--bg);
+  border: 1px solid var(--light);
   background-color: var(--trans);
   border-radius: 5px;
   padding: 0;

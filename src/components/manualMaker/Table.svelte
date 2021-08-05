@@ -26,9 +26,9 @@
       <tr>
         {#each table.columns as column}
           {#if !table.rows.length}
-            <th contenteditable bind:innerHTML={column} />
+            <th class="pane" contenteditable bind:innerHTML={column} />
           {:else}
-            <th>{column}</th>
+            <th class="pane">{column}</th>
           {/if}
         {/each}
       </tr>
@@ -37,7 +37,7 @@
       {#each table.rows as row}
         <tr>
           {#each table.columns as column}
-            <td contenteditable bind:innerHTML={row[column]} />
+            <td class="pane" contenteditable bind:innerHTML={row[column]} />
           {/each}
         </tr>
       {/each}

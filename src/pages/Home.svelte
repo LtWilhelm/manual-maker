@@ -34,7 +34,7 @@
 
 <card-container>
   {#each manuals as manual}
-    <card>
+    <card class="pane">
       <a href={"/manual/" + manual.uuid} use:link>
         <div>
           {#if manual.img}
@@ -53,7 +53,7 @@
       </a>
     </card>
   {/each}
-  <card>
+  <card class="pane">
     <button on:click={createManual}>+</button>
   </card>
 </card-container>
@@ -73,9 +73,10 @@
   }
 
   card {
-    border: 1px solid var(--text);
-    border-radius: 2rem;
-    backdrop-filter: blur(10px);
+    /* border: 1px solid var(--text); */
+    /* border-radius: 2rem; */
+    /* background-color: rgba(0,0,0,0);
+    backdrop-filter: blur(10px); */
     /* padding: 1rem; */
     overflow: hidden;
   }
@@ -98,6 +99,7 @@
     width: 100%;
     height: 100%;
     font-size: 700%;
+    border: none;
   }
 
   card a {
@@ -112,5 +114,11 @@
 
   .image-container img {
     width: 100%;
+  }
+
+  @media screen and (max-width: 425px) {
+    card-container {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

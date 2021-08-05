@@ -87,7 +87,7 @@
   }
   @media only screen and (max-width: 425px) {
     contents {
-      position: absolute;
+      position: fixed;
       top: 0;
       /* bottom: 0; */
       height: 100%;

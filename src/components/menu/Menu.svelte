@@ -8,17 +8,17 @@
 </script>
 
 <menu class:shown on:click={() => (shown = !shown)}>
-  <div class="menu-icon"><img src="/favicon.png" alt=""></div>
+  <div class="menu-icon"><img src="/favicon.png" alt="" /></div>
 
   {#if shown}
     {#if width > 425}
-    <ul transition:fly={{ duration: 500, x: -200 }}>
-      <MenuItem to="/">Home</MenuItem>
-    </ul>
+      <ul transition:fly={{ duration: 500, x: -200 }}>
+        <MenuItem to="/">Home</MenuItem>
+      </ul>
     {:else}
-    <ul transition:fly={{ duration: 500, y: -200 }}>
-      <MenuItem to="/">Home</MenuItem>
-    </ul>
+      <ul transition:fly={{ duration: 500, y: -200 }}>
+        <MenuItem to="/">Home</MenuItem>
+      </ul>
     {/if}
   {/if}
 </menu>
@@ -43,7 +43,7 @@
 
   .menu-icon img {
     width: 2rem;
-    transition: .2s;
+    transition: 0.2s;
     place-self: center;
   }
   .menu-icon:hover img {
@@ -82,8 +82,14 @@
   }
 
   @media only screen and (max-width: 425px) {
-    menu, menu.shown {
+    menu,
+    menu.shown {
       flex-basis: 100%;
+    }
+
+    menu {
+      position: sticky;
+      top: 0;
     }
   }
 </style>

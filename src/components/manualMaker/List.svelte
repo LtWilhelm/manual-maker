@@ -14,7 +14,7 @@
   $: dispatch("list", dataList);
 </script>
 
-<ul>
+<ul class="pane">
   {#each dataList as listItem}
     {#if edit}
       <li contenteditable bind:innerHTML={listItem} />

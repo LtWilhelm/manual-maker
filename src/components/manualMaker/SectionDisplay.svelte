@@ -37,7 +37,7 @@
 </script>
 
 {#if edit}
-  <h2 contenteditable bind:innerHTML={section.title} />
+  <h2 class="pane" contenteditable bind:innerHTML={section.title} />
   <!-- <p contenteditable bind:innerHTML={section.body} /> -->
   <BodyFormatter
     body={section.body}
@@ -53,6 +53,6 @@
   />
   <button on:click={deleteSection}>Delete</button>
 {:else}
-  <h2>{section.title}</h2>
-  <p>{section.body}</p>
+  <h2 class="pane">{section.title}</h2>
+  <p class="pane">{section.body}</p>
 {/if}

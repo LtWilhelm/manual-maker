@@ -61,7 +61,7 @@
 </script>
 
 {#each bodyArr as segment, i}
-  <div contenteditable bind:innerHTML={segment} />
+  <div class="pane" contenteditable bind:innerHTML={segment} />
   {#if insertions[i] === "table" && table}
     <Table dataTable={table} on:table {edit} />
   {:else if insertions[i] === "list" && list}

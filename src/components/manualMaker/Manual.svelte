@@ -7,7 +7,6 @@
   import SectionDisplay from "./SectionDisplay.svelte";
   import { idb } from "../../utils/idb";
 
-  
   let manual: Manual;
   const unsub = ManualStore.subscribe((val) => (manual = val));
 
@@ -30,16 +29,16 @@
   <Contents />
   <div>
     {#if manual.isEditable}
-      <h1 contenteditable bind:innerHTML={manual.title} />
+      <h1 class="pane" contenteditable bind:innerHTML={manual.title} />
       {#if !$ActiveSection}
-        <manual-body contenteditable bind:innerHTML={manual.bodies[0]} />
+        <manual-body class="pane" contenteditable bind:innerHTML={manual.bodies[0]} />
       {:else}
         <SectionDisplay edit={true} />
       {/if}
     {:else}
-      <h1>{manual.title}</h1>
+      <h1 class="pane">{manual.title}</h1>
       {#if !$ActiveSection}
-        <manual-body>{manual.bodies[0]}</manual-body>
+        <manual-body class="pane">{manual.bodies[0]}</manual-body>
       {:else}
         <SectionDisplay edit={false} />
       {/if}
@@ -50,7 +49,7 @@
 <style>
   manual {
     display: flex;
-    padding: 0 1.5em;
+    /* padding: 0 1.5em; */
   }
   div {
     flex-basis: 85%;

@@ -17,7 +17,7 @@
   main {
     width: 100vw;
     height: 100vh;
-    background-color: #00000080;
+    /* background-color: #00000080; */
     background-image: linear-gradient(165deg, #00000080, #00000080 40%, var(--bg) 40%);
     margin: 0;
     overflow: auto;
@@ -27,12 +27,15 @@
   div {
     /* margin: 1.5em; */
     flex: 1;
-    margin: 3rem;
+    margin: 0 3rem;
   }
 
   @media only screen and (max-width: 420px) {
     main {
       display: block;
+    }
+    div {
+      margin: 0 1.5em;
     }
   }
 </style>
