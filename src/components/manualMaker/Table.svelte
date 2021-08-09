@@ -18,6 +18,13 @@
   function addRow() {
     table = table.addRow();
   }
+
+  function deleteColumn(name: string) {
+    table = table.deleteColumn(name);
+  }
+  function deleteRow(index: number) {
+    table = table.deleteRow(index)
+  }
 </script>
 
 <table-container>
@@ -26,16 +33,16 @@
       <tr>
         {#each table.columns as column}
           {#if !table.rows.length}
-            <th class="pane" contenteditable bind:innerHTML={column} />
+            <th class="pane" on:dblclick={() => deleteColumn(column)} contenteditable bind:innerHTML={column} />
           {:else}
-            <th class="pane">{column}</th>
+            <th class="pane" on:dblclick={() => deleteColumn(column)}>{column}</th>
           {/if}
         {/each}
       </tr>
     </thead>
     <tbody>
-      {#each table.rows as row}
-        <tr>
+      {#each table.rows as row, i}
+        <tr on:dblclick={() => deleteRow(i)}>
           {#each table.columns as column}
             <td class="pane" contenteditable bind:innerHTML={row[column]} />
           {/each}

@@ -23,6 +23,16 @@ export class Table implements ITable {
     this.rows.push(new Row(undefined, this.columns));
     return this;
   }
+
+  deleteRow = (index: number) => {
+    this.rows.splice(index);
+    return this;
+  }
+  deleteColumn = (name: string) => {
+    this.columns = this.columns.filter(c => c !== name);
+    this.rows.forEach(r => delete r[name]);
+    return this;
+  }
 }
 
 export class Row {

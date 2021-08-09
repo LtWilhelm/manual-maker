@@ -22,7 +22,7 @@
     >
     <div>
       {#if visible || !$IsMobile}
-        <div transition:fly={{ duration: 300, x: -200 }}>
+        <div class="pane" transition:fly={{ duration: 300, x: -200 }}>
           <h3 on:click={() => ActiveSectionId.set("")}>{$manual.title}</h3>
           {#each $manual.sections as section (section.uuid)}
             <div animate:flip={{ duration: 300 }}>
@@ -38,15 +38,22 @@
 
 <style>
   contents {
-    border-right: 1px solid white;
+    /* border-right: 1px solid white;
     border-image: linear-gradient(
         to bottom,
         var(--trans) 5%,
         white,
         var(--trans) 95%
       )
-      1 100%;
+      1 100%; */
     /* direction: rtl; */
+  }
+
+  .pane {
+    margin-top: 1em;
+  }
+  .pane>h3 {
+    margin-top: 0;
   }
 
   contents > div > div {

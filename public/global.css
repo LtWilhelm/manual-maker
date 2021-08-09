@@ -29,14 +29,17 @@ body {
 }
 
 .pane, button {
-  text-shadow: 5px 5px 10px black;
+  text-shadow: 4px 4px 3px #00000080;
   backdrop-filter: blur(10px) drop-shadow(5px 5px 5px black);
-  box-shadow: -5px -5px 10px var(--light), 5px 5px 10px var(--shade);
-
+  box-shadow: -5px -5px 10px var(--light), 4px 4px 5px var(--shade);
+  border-bottom: 2px var(--shade) solid;
+  border-right: 2px var(--shade) solid;
+  border-top: none;
+  border-left: none;
 }
 
 th.pane, td.pane {
-  padding: 5px;
+  padding: 10px;
 }
 
 ul.pane {
@@ -48,10 +51,10 @@ table {
 }
 
 button {
-  border: 1px solid var(--light);
+  /* border: 1px solid var(--light); */
   background-color: var(--trans);
   border-radius: 5px;
-  padding: 0;
+  padding: 3px;
   cursor: pointer;
   transition: .3s;
 }
