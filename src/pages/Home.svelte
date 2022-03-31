@@ -11,13 +11,13 @@
 
   async function getManuals() {
     const temp = await ManualService.getAll();
-    manuals = temp.map((m) => new Manual(m));
+    console.log(temp);
+    manuals = temp.map((m: Manual) => new Manual(m));
   }
 
   async function createManual() {
     const manual = new Manual();
-    await idb("manuals", "put", JSON.parse(JSON.stringify(manual)));
-    getManuals();
+    await ManualService.create(manual);
   }
 
   const formatBody = (s: string) => {
@@ -35,7 +35,7 @@
 <card-container>
   {#each manuals as manual}
     <card class="pane">
-      <a href={"/manual/" + manual.uuid} use:link>
+      <a href={"/manual/" + manual._id} use:link>
         <div>
           {#if manual.img}
             <div class="image-container">

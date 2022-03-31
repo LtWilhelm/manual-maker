@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
+import { Manual } from "../classes/Manual/Manual";
 
-  import Manual from "../components/manualMaker/Manual.svelte";
+  import ManualEditor from "../components/manualMaker/ManualEditor.svelte";
   import ManualService from "../services/ManualService";
   import { ActiveSectionId } from "../stores/ActiveSection";
   import { ManualStore } from "../stores/Manual";
@@ -18,11 +19,12 @@
 
   export let params: any & { id?: string } = {};
 
-  onMount(() => {
+  onMount(async () => {
     if (params.id && $ManualStore.uuid !== params.id) {
-      ManualService.getById(params.id);
+      const temp = await ManualService.getById(params.id);
+      ManualStore.set(new Manual(temp))
     }
   });
 </script>
 
-<Manual />
+<ManualEditor />

@@ -50,7 +50,7 @@
   }
 
   .pane {
-    margin-top: 1em;
+    margin: 1rem;
   }
   .pane>h3 {
     margin-top: 0;

@@ -3,6 +3,7 @@ import { Section } from "./Section";
 
 export class Manual {
   uuid: string;
+  _id: string;
   title: string;
   sections: Section[];
   bodies?: string[];
@@ -12,8 +13,9 @@ export class Manual {
 
   constructor(m?: Manual) {
     this.uuid = m?.uuid || v4();
+    this._id = m?._id || '';
     this.title = m?.title || 'Title 🖊';
-    this.sections = m ? m?.sections.map(s => new Section(s)) : [];
+    this.sections = m?.sections?.map(s => new Section(s)) || [];
     this.bodies = m?.bodies || [''];
     this.isEditable = m?.isEditable || true;
     this.img = m?.img;

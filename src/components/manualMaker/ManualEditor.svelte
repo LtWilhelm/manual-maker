@@ -10,7 +10,7 @@
   let manual: Manual;
   const unsub = ManualStore.subscribe((val) => (manual = val));
 
-  let timer;
+  let timer: NodeJS.Timeout;
   $: {
     update(manual);
   }

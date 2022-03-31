@@ -40,7 +40,7 @@ export class Section implements IFormattable {
     return this;
   }
 
-  findSection = (id: string) => {
+  findSection = (id: string): Section | undefined=> {
     if (id === this.uuid) return this;
     if (this.sections?.length)
       for (let i = 0; i < this.sections.length; i++) {
@@ -63,7 +63,7 @@ export class Section implements IFormattable {
     return this;
   }
 
-  updateSection = (section: Section) => {
+  updateSection = (section: Section): boolean => {
     if (section.uuid === this.uuid) {
       this.title = section.title;
       this.type = section.type;
@@ -76,7 +76,7 @@ export class Section implements IFormattable {
       for (let i = 0; i < this.sections.length; i++) {
         const section = this.sections[i];
         const found = section.updateSection(section);
-        if (found) return found;
+        if (found) return !!found;
       }
   }
 
