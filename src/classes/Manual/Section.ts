@@ -1,19 +1,11 @@
 import { v4 } from "uuid";
-import { Table } from "./Table";
 
-export interface IFormattable {
-  table?: Table;
-  list?: string[];
-}
-
-export class Section implements IFormattable {
+export class Section {
   uuid: string;
   title: string;
   type: 'group' | 'standalone';
   body?: string;
   sections?: Section[];
-  table?: Table;
-  list?: string[];
 
   constructor(s?: Section) {
     this.uuid = s?.uuid || v4();
@@ -22,17 +14,6 @@ export class Section implements IFormattable {
     this.body = s?.body || 'Body 🖊';
     this.sections = s?.sections?.map(s => new Section(s));
 
-    this.table = s?.table ? new Table(s.table) : undefined;
-    this.list = s?.list;
-  }
-
-  addTable = (t: Table) => {
-    this.table = t;
-    return this;
-  }
-  addList = () => {
-    this.list = [];
-    return this;
   }
 
   addSection = (s: Section) => {
@@ -52,14 +33,6 @@ export class Section implements IFormattable {
 
   updateBody = (body?: string) => {
     this.body = body;
-    return this;
-  }
-  updateTable = (table?: Table) => {
-    this.table = table ? new Table(table) : undefined;
-    return this;
-  }
-  updateList = (list: string[]) => {
-    this.list = list;
     return this;
   }
 

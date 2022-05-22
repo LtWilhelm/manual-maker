@@ -6,23 +6,41 @@
   import { ActiveSection } from "../../stores/ActiveSection";
   import SectionDisplay from "./SectionDisplay.svelte";
   import { idb } from "../../utils/idb";
+  import ManualService from "../../services/ManualService";
 
-  let manual: Manual;
-  const unsub = ManualStore.subscribe((val) => (manual = val));
+  let manual: Manual = $ManualStore;
+  let save: boolean = false;
+  let changeIsFromSync = false;
+  // const unsub = ManualStore.subscribe((val) => {
+  //   console.log('change detected');
+  //   // save = false;
+  //   // changeIsFromSync = true;
+  //   manual = val;
+  // });
 
   let timer: NodeJS.Timeout;
   $: {
     update(manual);
+    if (!changeIsFromSync) {
+      save = true;
+    } else {
+      changeIsFromSync = false;
+    }
   }
 
   function update(m: Manual) {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      idb("manuals", "put", JSON.parse(JSON.stringify(m)));
-    }, 2000);
+    if (save) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        ManualService.update(manual);
+        changeIsFromSync = true;
+        save = false;
+        ManualStore.set(manual);
+      }, 2000);
+    }
   }
 
-  onDestroy(unsub);
+  // onDestroy(unsub);
 </script>
 
 <manual>
@@ -31,7 +49,11 @@
     {#if manual.isEditable}
       <h1 class="pane" contenteditable bind:innerHTML={manual.title} />
       {#if !$ActiveSection}
-        <manual-body class="pane" contenteditable bind:innerHTML={manual.bodies[0]} />
+        <manual-body
+          class="pane"
+          contenteditable
+          bind:innerHTML={manual.bodies[0]}
+        />
       {:else}
         <SectionDisplay edit={true} />
       {/if}

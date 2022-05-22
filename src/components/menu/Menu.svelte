@@ -1,25 +1,35 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
+
   import { fly } from "svelte/transition";
+  import { FancyModeStore } from "../../stores/FancyMode";
   import Icon from "../Icon.svelte";
   import MenuItem from "./MenuItem.svelte";
 
   let shown: boolean = false;
   export let width: number;
+
+  const unsub = FancyModeStore.subscribe((val) =>
+    localStorage.setItem("fancyMode", JSON.stringify(val))
+  );
+  onDestroy(unsub);
+
+  const transitionConfig = { duration: 500, x: 0, y: 0 };
+  width > 425 ? (transitionConfig.y = -200) : (transitionConfig.x = -200);
+
+  function toggleFancy () {
+    FancyModeStore.update(val => !val);
+  }
 </script>
 
 <menu class:shown on:click={() => (shown = !shown)}>
   <div class="menu-icon"><img src="/favicon.png" alt="" /></div>
 
   {#if shown}
-    {#if width > 425}
-      <ul transition:fly={{ duration: 500, x: -200 }}>
-        <MenuItem to="/">Home</MenuItem>
-      </ul>
-    {:else}
-      <ul transition:fly={{ duration: 500, y: -200 }}>
-        <MenuItem to="/">Home</MenuItem>
-      </ul>
-    {/if}
+    <ul transition:fly={transitionConfig}>
+      <MenuItem to="/">Home</MenuItem>
+      <li><button on:click={toggleFancy}>Turn {$FancyModeStore ? 'off' : 'on'} fancy mode</button></li>
+    </ul>
   {/if}
 </menu>
 

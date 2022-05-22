@@ -1,7 +1,7 @@
 import type { Manual } from "../classes/Manual/Manual";
 import { ManualStore } from "../stores/Manual"
 import { idb } from "../utils/idb"
-import { slimGet, slimPost } from "../utils/slimFetch";
+import { slimGet, slimPost, slimPut } from "../utils/slimFetch";
 import { ConfigService } from "./ConfigService";
 
 export default {
@@ -11,5 +11,6 @@ export default {
   // },
   getAll: () => slimGet(ConfigService.get('site.server')),
   getById: (id: string) => slimGet(ConfigService.get('site.server') + '/' + id),
-  create: (manual: Manual) => slimPost(ConfigService.get('site.server'), manual)
+  create: (manual: Manual) => slimPost(ConfigService.get('site.server'), manual),
+  update: (manual: Manual) => slimPut(ConfigService.get('site.server'), manual)
 }

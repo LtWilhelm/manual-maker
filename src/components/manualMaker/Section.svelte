@@ -59,6 +59,7 @@
     padding: 0;
     margin-right: 10px;
     cursor: pointer;
+    -webkit-user-select: none;
     user-select: none;
     width: 100%;
   }

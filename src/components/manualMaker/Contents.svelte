@@ -31,7 +31,7 @@
           {/each}
         </div>
       {/if}
-      <button class="add" on:click={addSection}>&nbsp;+&nbsp;</button>
+      <button class="add green" on:click={addSection}>Add Section</button>
     </div>
   </div>
 </contents>
@@ -51,6 +51,7 @@
 
   .pane {
     margin: 1rem;
+    margin-left: 0;
   }
   .pane>h3 {
     margin-top: 0;
@@ -65,6 +66,7 @@
   }
 
   h3 {
+    -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
   }
@@ -79,17 +81,17 @@
   }
 
   button.add {
-    font-weight: bold;
-    font-size: large;
-    width: 1.5em;
-    height: 1.5em;
+    /* font-weight: bold; */
+    /* font-size: large; */
+    /* text-align: center; */
+    margin-left: auto;
   }
 
   @media only screen and (min-width: 425px) {
     contents {
       flex-basis: 15%;
-      margin-right: 1em;
-      padding-right: 10px;
+      /* margin-right: 1em;
+      padding-right: 10px; */
     }
   }
   @media only screen and (max-width: 425px) {
@@ -102,6 +104,7 @@
       background-color: black;
       transition: 300ms ease-out;
       left: 0;
+      z-index: 1;
     }
 
     contents.visible {
