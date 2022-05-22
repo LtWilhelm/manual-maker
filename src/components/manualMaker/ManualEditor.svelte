@@ -2,42 +2,27 @@
   import Contents from "./Contents.svelte";
   import type { Manual } from "../../classes/Manual/Manual";
   import { ManualStore } from "../../stores/Manual";
-  import { onDestroy } from "svelte";
   import { ActiveSection } from "../../stores/ActiveSection";
   import SectionDisplay from "./SectionDisplay.svelte";
-  import { idb } from "../../utils/idb";
   import ManualService from "../../services/ManualService";
+import { isLoading } from '../../stores/Status';
 
-  let manual: Manual = $ManualStore;
-  let save: boolean = false;
-  let changeIsFromSync = false;
-  // const unsub = ManualStore.subscribe((val) => {
-  //   console.log('change detected');
-  //   // save = false;
-  //   // changeIsFromSync = true;
-  //   manual = val;
-  // });
+  let manual: Manual;
+  ManualStore.subscribe((val) => (manual = val));
 
   let timer: NodeJS.Timeout;
   $: {
     update(manual);
-    if (!changeIsFromSync) {
-      save = true;
-    } else {
-      changeIsFromSync = false;
-    }
   }
 
   function update(m: Manual) {
-    if (save) {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        ManualService.update(manual);
-        changeIsFromSync = true;
-        save = false;
-        ManualStore.set(manual);
-      }, 2000);
-    }
+    console.log("doing things maybe?");
+    clearTimeout(timer);
+    timer = setTimeout(async () => {
+      isLoading.set(true);
+      await ManualService.update(manual);
+      isLoading.set(false);
+    }, 2000);
   }
 
   // onDestroy(unsub);

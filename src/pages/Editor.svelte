@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
-import { Manual } from "../classes/Manual/Manual";
+  import { Manual } from "../classes/Manual/Manual";
 
   import ManualEditor from "../components/manualMaker/ManualEditor.svelte";
   import ManualService from "../services/ManualService";
@@ -20,11 +20,15 @@ import { Manual } from "../classes/Manual/Manual";
   export let params: any & { id?: string } = {};
 
   onMount(async () => {
-    if (params.id && $ManualStore.uuid !== params.id) {
+    if (params.id && $ManualStore?.uuid !== params.id) {
       const temp = await ManualService.getById(params.id);
-      ManualStore.set(new Manual(temp))
+      ManualStore.set(new Manual(temp));
     }
   });
 </script>
 
-<ManualEditor />
+{#if $ManualStore}
+  <ManualEditor />
+{:else}
+  <p>LOADING</p>
+{/if}

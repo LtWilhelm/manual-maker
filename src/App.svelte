@@ -3,6 +3,7 @@
   import routes from "./routes";
   import Menu from "./components/menu/Menu.svelte";
   import { FancyModeStore } from "./stores/FancyMode";
+import Spinner from './components/Spinner.svelte';
 
   let width: number;
 </script>
@@ -12,6 +13,7 @@
   <div>
     <Router {routes} />
   </div>
+  <Spinner />
 </main>
 
 <style>
