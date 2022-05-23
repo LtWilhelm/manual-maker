@@ -6,6 +6,7 @@ export class Section {
   type: 'group' | 'standalone';
   body?: string;
   sections?: Section[];
+  parent: string;
 
   constructor(s?: Section) {
     this.uuid = s?.uuid || v4();
@@ -13,7 +14,7 @@ export class Section {
     this.type = s?.type || 'standalone';
     this.body = s?.body || 'Body 🖊';
     this.sections = s?.sections?.map(s => new Section(s));
-
+    this.parent = s.parent;
   }
 
   addSection = (s: Section) => {

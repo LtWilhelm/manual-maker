@@ -42,7 +42,7 @@
       <button on:click={addSection}>+</button>
     {/if}
   </div>
-  {#if section.type === "group"}
+  {#if section.type === "group" && section.sections}
     <children class:active={section.hasSection($ActiveSectionId)}>
       {#each section.sections as section (section.uuid)}
         <div class="child" animate:flip={{ duration: 300 }}>

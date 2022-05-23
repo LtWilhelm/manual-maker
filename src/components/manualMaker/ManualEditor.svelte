@@ -1,6 +1,6 @@
 <script lang="ts">
   import Contents from "./Contents.svelte";
-  import type { Manual } from "../../classes/Manual/Manual";
+  import { Manual, ManualSave } from "../../classes/Manual/Manual";
   import { ManualStore } from "../../stores/Manual";
   import { ActiveSection } from "../../stores/ActiveSection";
   import SectionDisplay from "./SectionDisplay.svelte";
@@ -16,11 +16,11 @@ import { isLoading } from '../../stores/Status';
   }
 
   function update(m: Manual) {
-    console.log("doing things maybe?");
     clearTimeout(timer);
     timer = setTimeout(async () => {
       isLoading.set(true);
-      await ManualService.update(manual);
+      await ManualService.update(new ManualSave(manual));
+      // console.log(new Manual(new ManualSave(manual), true));
       isLoading.set(false);
     }, 2000);
   }

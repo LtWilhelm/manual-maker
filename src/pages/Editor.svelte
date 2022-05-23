@@ -22,7 +22,7 @@
   onMount(async () => {
     if (params.id && $ManualStore?.uuid !== params.id) {
       const temp = await ManualService.getById(params.id);
-      ManualStore.set(new Manual(temp));
+      ManualStore.set(new Manual(temp, true));
     }
   });
 </script>
