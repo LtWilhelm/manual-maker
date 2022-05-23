@@ -5,19 +5,16 @@ import { Manual } from '../../classes/Manual/Manual';
   import { Section } from "../../classes/Manual/Section";
   import ManualService from "../../services/ManualService";
 
-  import { ActiveSection } from "../../stores/ActiveSection";
+  import { ActiveSectionId } from "../../stores/ActiveSection";
   import { ManualStore } from "../../stores/Manual";
 
   export let edit: boolean;
   let section: Section;
 
   $: section && updateSection(section);
-
+  $: $ActiveSectionId && getSection();
   onMount(async () => {
-    const s = await ManualService.getSection(
-      $ManualStore._id,
-      $ActiveSection.uuid
-    );
+    const s = await getSection();
 
     section = new Section(s, $ManualStore._id);
   });
@@ -34,6 +31,13 @@ import { Manual } from '../../classes/Manual/Manual';
   async function deleteSection() {
     await ManualService.deleteSection($ManualStore._id, section.uuid);
     ManualStore.set(new Manual(await ManualService.getById($ManualStore._id), true));
+  }
+
+  async function getSection() {
+    return await ManualService.getSection(
+      $ManualStore._id,
+      $ActiveSectionId
+    );
   }
 </script>
 
