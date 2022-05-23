@@ -17,7 +17,7 @@ export class Section {
     this.body = s?.body || 'Body 🖊';
     this.manualId = manualId || s?.manualId || '';
     this.sections = s?.sections?.map(s => new Section(s, this.manualId));
-    this.parent = s.parent;
+    this.parent = s?.parent || '';
   }
 
   addSection = (s: Section) => {

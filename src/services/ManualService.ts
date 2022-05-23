@@ -17,5 +17,5 @@ export default {
   getSection: (manualId: string, sectionId: string) => slimGet(ConfigService.get('site.server') + `/${manualId}/sections/${sectionId}`),
   deleteSection: (manualId: string, sectionId: string) => slimDelete(ConfigService.get('site.server') + `/${manualId}/sections/${sectionId}`),
   updateSection: (section: Section) => slimPut(ConfigService.get('site.server') + `/${section.manualId}/sections`, section),
-  createSection: (section: Section) => slimPut(ConfigService.get('site.server') + `/${section.manualId}/sections`, section),
+  createSection: (section: Section) => slimPost(ConfigService.get('site.server') + `/${section.manualId}/sections`, section),
 }

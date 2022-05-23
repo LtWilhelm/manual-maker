@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
+import { Manual } from '../../classes/Manual/Manual';
 
   import { Section } from "../../classes/Manual/Section";
   import ManualService from "../../services/ManualService";
@@ -32,7 +33,7 @@
 
   async function deleteSection() {
     await ManualService.deleteSection($ManualStore._id, section.uuid);
-    ManualStore.update((m) => m.removeSection(section.uuid));
+    ManualStore.set(new Manual(await ManualService.getById($ManualStore._id), true));
   }
 </script>
 

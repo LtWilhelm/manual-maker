@@ -4,14 +4,21 @@
   import { fly } from "svelte/transition";
   import Icon from "../Icon.svelte";
   import { IsMobile } from "../../stores/IsMobile";
-  import { ManualStore as manual } from "../../stores/Manual";
+  import { ManualStore as manual, ManualStore } from "../../stores/Manual";
   import { ActiveSectionId } from "../../stores/ActiveSection";
   import { flip } from "svelte/animate";
+  import ManualService from "../../services/ManualService";
+  import { Manual } from "../../classes/Manual/Manual";
 
   let visible = false;
 
-  function addSection() {
-    manual.update((m) => m.addSection(new Sec()));
+  async function addSection() {
+    const sec = new Sec();
+    sec.manualId = $ManualStore._id;
+    await ManualService.createSection(sec);
+    ManualStore.set(
+      new Manual(await ManualService.getById($ManualStore._id), true)
+    );
   }
 </script>
 
@@ -53,7 +60,7 @@
     margin: 1rem;
     margin-left: 0;
   }
-  .pane>h3 {
+  .pane > h3 {
     margin-top: 0;
   }
 
