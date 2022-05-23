@@ -1,5 +1,5 @@
 {
   "site": {
-    "server": "https://manual-maker-server.ursadesign.io"
+    "server": "http://localhost:6969"
   }
 }

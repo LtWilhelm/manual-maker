@@ -1,40 +1,49 @@
 <script lang="ts">
-  import type { Section } from "../../classes/Manual/Section";
+  import { onDestroy, onMount } from "svelte";
+
+  import { Section } from "../../classes/Manual/Section";
+  import ManualService from "../../services/ManualService";
 
   import { ActiveSection } from "../../stores/ActiveSection";
   import { ManualStore } from "../../stores/Manual";
 
   export let edit: boolean;
-  let section: Section = $ActiveSection;
+  let section: Section;
 
-  $: {
-    section = $ActiveSection;
-    ManualStore.update((m) => m.updateSection(section));
+  $: section && updateSection(section);
+
+  onMount(async () => {
+    const s = await ManualService.getSection(
+      $ManualStore._id,
+      $ActiveSection.uuid
+    );
+
+    section = new Section(s, $ManualStore._id);
+  });
+
+  let timer: NodeJS.Timeout;
+  function updateSection(s: Section) {
+    clearTimeout(timer);
+    timer = setTimeout(async () => {
+      console.log(s);
+      if (s.uuid && s.manualId) await ManualService.updateSection(s);
+    }, 2000);
   }
 
-  function deleteSection() {
+  async function deleteSection() {
+    await ManualService.deleteSection($ManualStore._id, section.uuid);
     ManualStore.update((m) => m.removeSection(section.uuid));
   }
-
 </script>
 
-{#if edit}
-  <h2 class="pane" contenteditable bind:innerHTML={section.title} />
-  <p class="pane" contenteditable bind:innerHTML={section.body} />
-  <!-- <BodyFormatter
-    body={section.body}
-    table={section.table}
-    list={section.list}
-    id={section.uuid}
-    {edit}
-    on:body={updateBody}
-    on:table={updateTable}
-    on:list={updateList}
-    on:addTable={addTable}
-    on:addList={addList}
-  /> -->
-  <button class="red" on:click={deleteSection}>Delete Section</button>
-{:else}
-  <h2 class="pane">{section.title}</h2>
-  <p class="pane">{section.body}</p>
+{#if section}
+  {#if edit}
+    <h2 class="pane" contenteditable bind:innerHTML={section.title} />
+    <p class="pane" contenteditable bind:innerHTML={section.body} />
+
+    <button class="red" on:click={deleteSection}>Delete Section</button>
+  {:else}
+    <h2 class="pane">{section.title}</h2>
+    <p class="pane">{section.body}</p>
+  {/if}
 {/if}

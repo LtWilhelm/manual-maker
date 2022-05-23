@@ -5,7 +5,7 @@
   import { ActiveSection } from "../../stores/ActiveSection";
   import SectionDisplay from "./SectionDisplay.svelte";
   import ManualService from "../../services/ManualService";
-import { isLoading } from '../../stores/Status';
+  import { isLoading } from "../../stores/Status";
 
   let manual: Manual;
   ManualStore.subscribe((val) => (manual = val));
@@ -19,8 +19,8 @@ import { isLoading } from '../../stores/Status';
     clearTimeout(timer);
     timer = setTimeout(async () => {
       isLoading.set(true);
-      await ManualService.update(new ManualSave(manual));
-      // console.log(new Manual(new ManualSave(manual), true));
+      // await ManualService.update(new ManualSave(manual));
+      console.log(new ManualSave(manual));
       isLoading.set(false);
     }, 2000);
   }

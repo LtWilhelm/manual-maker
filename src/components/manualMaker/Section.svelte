@@ -4,6 +4,7 @@
   import { ManualStore } from "../../stores/Manual";
   import { flip } from "svelte/animate";
   import { createEventDispatcher } from "svelte";
+  import ManualService from "../../services/ManualService";
 
   export let section: Section;
   let active = $ActiveSectionId === section.uuid;
@@ -17,17 +18,20 @@
   function selectSection(e: Event) {
     e.stopPropagation();
     ActiveSectionId.set(section.uuid);
-    const url = window.location.href.split('?');
-    url[1] = `section=${section.uuid}`
-    window.location.href = url.join('?');
+    const url = window.location.href.split("?");
+    url[1] = `section=${section.uuid}`;
+    window.location.href = url.join("?");
     dispatch("close");
   }
 
   function addSection() {
     section.type = "group";
-    ManualStore.update((m) =>
-      m.updateSection(section.addSection(new Section()))
-    );
+    ManualStore.update((m) => {
+      const section = new Section();
+      section.manualId = m._id;
+      ManualService;
+      return m.updateSection(section.addSection(section));
+    });
   }
 </script>
 

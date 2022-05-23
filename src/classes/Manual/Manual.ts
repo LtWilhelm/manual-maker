@@ -21,9 +21,9 @@ export class Manual {
     // this.sections = m?.sections?.map(s => new Section(s)) || [];
 
     if (reparent) {
-      this.sections = Manual.reparentSections(m?.sections?.map(s => new Section(s)) || []);
+      this.sections = Manual.reparentSections(m?.sections?.map(s => new Section(s, this._id)) || []);
     } else {
-      this.sections = m?.sections?.map(s => new Section(s)) || [];
+      this.sections = m?.sections?.map(s => new Section(s, this._id)) || [];
     }
   }
 
@@ -67,7 +67,6 @@ export class Manual {
     const sectionMap = new Map<string, Section>();
     const parented: Section[] = [];
     for (const section of sections) {
-      console.log(section);
       sectionMap.set(section.uuid, section);
       if (section.parent) {
         const parent = sectionMap.get(section.parent);

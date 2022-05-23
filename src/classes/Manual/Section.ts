@@ -7,13 +7,16 @@ export class Section {
   body?: string;
   sections?: Section[];
   parent: string;
+  manualId: string;
 
-  constructor(s?: Section) {
+  constructor(s?: Section, manualId?: string) {
+    console.log(manualId);
     this.uuid = s?.uuid || v4();
     this.title = s?.title || 'Title 🖊';
     this.type = s?.type || 'standalone';
     this.body = s?.body || 'Body 🖊';
-    this.sections = s?.sections?.map(s => new Section(s));
+    this.manualId = manualId || s?.manualId || '';
+    this.sections = s?.sections?.map(s => new Section(s, this.manualId));
     this.parent = s.parent;
   }
 
@@ -22,7 +25,7 @@ export class Section {
     return this;
   }
 
-  findSection = (id: string): Section | undefined=> {
+  findSection = (id: string): Section | undefined => {
     if (id === this.uuid) return this;
     if (this.sections?.length)
       for (let i = 0; i < this.sections.length; i++) {
@@ -30,11 +33,6 @@ export class Section {
         let found = section.findSection(id);
         if (found) return found;
       }
-  }
-
-  updateBody = (body?: string) => {
-    this.body = body;
-    return this;
   }
 
   updateSection = (section: Section): boolean => {

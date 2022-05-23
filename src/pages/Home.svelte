@@ -11,7 +11,6 @@
 
   async function getManuals() {
     const temp = await ManualService.getAll();
-    console.log(temp);
     manuals = temp.map((m: Manual) => new Manual(m));
   }
 
