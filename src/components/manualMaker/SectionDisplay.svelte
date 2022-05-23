@@ -21,17 +21,23 @@
     clearTimeout(timer);
     timer = setTimeout(async () => {
       if (!$isLoading && s.uuid && s.manualId) {
+        isLoading.set(true);
         await ManualService.updateSection(s);
+        ManualStore.set(
+          new Manual(await ManualService.getById($ManualStore._id), true)
+        );
       }
       isLoading.set(false);
     }, 2000);
   }
 
   async function deleteSection() {
+    isLoading.set(true);
     await ManualService.deleteSection($ManualStore._id, section.uuid);
     ManualStore.set(
       new Manual(await ManualService.getById($ManualStore._id), true)
     );
+    isLoading.set(false);
   }
 
   async function getSection() {

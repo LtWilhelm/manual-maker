@@ -27,10 +27,11 @@
   function addSection() {
     section.type = "group";
     ManualStore.update((m) => {
-      const section = new Section();
-      section.manualId = m._id;
-      ManualService;
-      return m.updateSection(section.addSection(section));
+      const sec = new Section();
+      sec.manualId = m._id;
+      sec.parent = section.uuid;
+      ManualService.createSection(sec);
+      return m.updateSection(section.addSection(sec));
     });
   }
 </script>
