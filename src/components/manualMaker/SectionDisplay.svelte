@@ -1,43 +1,47 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
-import { Manual } from '../../classes/Manual/Manual';
+  import { Manual } from "../../classes/Manual/Manual";
 
   import { Section } from "../../classes/Manual/Section";
   import ManualService from "../../services/ManualService";
 
   import { ActiveSectionId } from "../../stores/ActiveSection";
   import { ManualStore } from "../../stores/Manual";
+  import { isLoading } from "../../stores/Status";
 
   export let edit: boolean;
   let section: Section;
 
   $: section && updateSection(section);
   $: $ActiveSectionId && getSection();
-  onMount(async () => {
-    const s = await getSection();
-
-    section = new Section(s, $ManualStore._id);
-  });
+  // onMount(getSection);
 
   let timer: NodeJS.Timeout;
   function updateSection(s: Section) {
     clearTimeout(timer);
     timer = setTimeout(async () => {
-      console.log(s);
-      if (s.uuid && s.manualId) await ManualService.updateSection(s);
+      if (!$isLoading && s.uuid && s.manualId) {
+        await ManualService.updateSection(s);
+      }
+      isLoading.set(false);
     }, 2000);
   }
 
   async function deleteSection() {
     await ManualService.deleteSection($ManualStore._id, section.uuid);
-    ManualStore.set(new Manual(await ManualService.getById($ManualStore._id), true));
+    ManualStore.set(
+      new Manual(await ManualService.getById($ManualStore._id), true)
+    );
   }
 
   async function getSection() {
-    return await ManualService.getSection(
+    isLoading.set(true);
+    clearTimeout(timer);
+    const sec = await ManualService.getSection(
       $ManualStore._id,
       $ActiveSectionId
     );
+    section = new Section(sec, $ManualStore._id);
   }
 </script>
 

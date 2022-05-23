@@ -1,6 +1,6 @@
 <script lang="ts">
   import Contents from "./Contents.svelte";
-  import { Manual, ManualSave } from "../../classes/Manual/Manual";
+  import type { Manual } from "../../classes/Manual/Manual";
   import { ManualStore } from "../../stores/Manual";
   import { ActiveSection } from "../../stores/ActiveSection";
   import SectionDisplay from "./SectionDisplay.svelte";
@@ -20,7 +20,6 @@
     timer = setTimeout(async () => {
       isLoading.set(true);
       // await ManualService.update(new ManualSave(manual));
-      console.log(new ManualSave(manual));
       isLoading.set(false);
     }, 2000);
   }

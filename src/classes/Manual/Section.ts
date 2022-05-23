@@ -10,7 +10,6 @@ export class Section {
   manualId: string;
 
   constructor(s?: Section, manualId?: string) {
-    console.log(manualId);
     this.uuid = s?.uuid || v4();
     this.title = s?.title || 'Title 🖊';
     this.type = s?.type || 'standalone';
